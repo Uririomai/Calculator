@@ -1,0 +1,16 @@
+.input {
+	height: var(--input-height);
+	padding: 10px 15px;
+	font-size: 14px;
+	font-weight: 400;
+	border-radius: 40px;
+	border: 1px solid var(--color-border);
+
+	&--lock {
+		background-color: var(--color-gray-background);
+	}
+
+	&:user-invalid {
+		border: 1px solid var(--color-error);
+	}
+}

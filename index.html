@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Калькулятор</title>
+		<link rel="stylesheet" href="./src/styles/css/style.css" />
+	</head>
+	<body>
+		<section class="container button-wrapper">
+			<button class="button-calc button" onclick="modal.showModal()">
+				Калькулятор
+			</button>
+		</section>
+		<dialog id="modal" class="modal">
+			<div class="modal__header">
+				<h2 class="modal__title">Калькулятор</h2>
+				<button class="modal__close"></button>
+			</div>
+			<div class="modal__body">
+				<div class="modal__step-one">
+					<h3 class="modal__subtitle">
+						<span class="modal--purple">Шаг 1</span> Добавьте товары или
+						выберите заказ
+					</h3>
+					<div class="modal__select-title-wrapper">
+						<p class="modal__select-title">Выберите заказ</p>
+						<span class="modal__hint-hover">?</span>
+					</div>
+					<input
+						class="modal__input-open-select"
+						placeholder="Начните вводить номер заказа"
+						minlength="2"
+						maxlength="20"
+					/>
+
+					<ul class="modal__products-list">
+						<li class="modal__product product">
+							<div class="product__header">
+								<h3 class="product__title modal--purple">Товар</h3>
+								<button class="product__delete"></button>
+							</div>
+							<div class="product__input-wrapper">
+								<label for="" class="product__name-label label">
+									Название товара
+								</label>
+								<input
+									type="text"
+									class="product__name-input input"
+									placeholder="Введите название товара"
+									minlength="2"
+									maxlength="50"
+								/>
+							</div>
+							<p class="product__name-hint">
+								Скорее всего, это
+								<span class="modal--purple">линия "Одежда"</span>
+							</p>
+							<h4 class="product__subtitle">
+								Введите транспортировочные данные
+							</h4>
+							<ul class="product__delivery-data">
+								<ul class="product__delivery-dimensions">
+									<li class="product__delivery-param product__input-wrapper">
+										<label for="" class="product__delivery-label label">
+											Длина, см
+										</label>
+										<input
+											type="number"
+											class="product__delivery-input input dimension"
+											placeholder="Длина"
+											min="1"
+											max="99999"
+										/>
+									</li>
+									<li class="product__delivery-param product__input-wrapper">
+										<label for="" class="product__delivery-label label">
+											Ширина, см
+										</label>
+										<input
+											type="number"
+											class="product__delivery-input input dimension"
+											placeholder="Ширина"
+											min="1"
+											max="99999"
+										/>
+									</li>
+									<li class="product__delivery-param product__input-wrapper">
+										<label for="" class="product__delivery-label label">
+											Высота, см
+										</label>
+										<input
+											type="number"
+											class="product__delivery-input input dimension"
+											placeholder="Высота"
+											min="1"
+											max="99999"
+										/>
+									</li>
+									<p class="product__text">=</p>
+									<li class="product__delivery-param product__input-wrapper">
+										<label for="" class="product__delivery-label label">
+											Объём, м3
+										</label>
+										<input
+											type="text"
+											class="product__delivery-input input input--lock volume"
+											placeholder="Объём"
+											readonly
+										/>
+									</li>
+								</ul>
+								<li class="product__delivery-param product__input-wrapper">
+									<label for="" class="product__delivery-label label">
+										Вес коробки, кг
+									</label>
+									<input
+										type="number"
+										class="product__delivery-input product__delivery-input--long input weight"
+										placeholder="Введите вес коробки"
+										min="1"
+										max="99999"
+									/>
+								</li>
+								<li class="product__delivery-param product__input-wrapper">
+									<label for="" class="product__delivery-label label">
+										Кол-во коробок, шт
+									</label>
+									<input
+										type="number"
+										class="product__delivery-input product__delivery-input--long input count"
+										placeholder="Введите кол-во коробок"
+										min="1"
+										max="99999"
+									/>
+								</li>
+								<li class="product__delivery-param product__input-wrapper">
+									<label for="" class="product__delivery-label label">
+										Стоимость товара, ¥
+									</label>
+									<input
+										type="number"
+										class="product__delivery-input product__delivery-input--long input cost"
+										placeholder="Введите общую стоимость всего товара"
+										min="1"
+										max="9999999"
+									/>
+								</li>
+							</ul>
+							<label class="modal__fragile-checkbox checkbox">
+								<input type="checkbox" class="checkbox__input" />
+								Хрупкий товар
+							</label>
+						</li>
+					</ul>
+					<label class="modal__add-product-label"
+						><button class="modal__add-product"></button>
+						<span class="modal--purple">Добавить товар</span></label
+					>
+					<div class="modal__result-calc">
+						<h3 class="modal__subtitle">Результат подсчета</h3>
+						<ul class="modal__result-list">
+							<li class="modal__result-item">
+								<label class="label" for=""> Общий вес </label>
+								<input
+									class="modal__result-input input input--lock weight-result"
+									type="number"
+									value="0"
+									readonly
+								/>
+							</li>
+							<li class="modal__result-item">
+								<label class="label" for=""> Общий объём </label>
+								<input
+									class="modal__result-input input input--lock volume-result"
+									type="number"
+									value="0"
+									readonly
+								/>
+							</li>
+							<li class="modal__result-item">
+								<label class="label" for=""> Плотность товаров </label>
+								<input
+									class="modal__result-input input input--lock density-result"
+									type="number"
+									value="0"
+									readonly
+								/>
+							</li>
+							<li class="modal__result-item">
+								<label for="" class="label"> Стоимость товаров, $ </label>
+								<input
+									class="modal__result-input input input--lock cost-result"
+									type="number"
+									value="0"
+									readonly
+								/>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="modal__step-two">
+					<div class="modal__step-header">
+						<h3 class="modal__subtitle">
+							<span class="modal--purple">Шаг 2</span> Укажите упаковку
+						</h3>
+						<p class="modal__advice">
+							Совет: используйте
+							<span class="modal--purple">Обрешётку</span>
+						</p>
+					</div>
+					<div class="modal__select-wrapper">
+						<button class="modal__select">Выберите упаковку</button>
+						<ul class="modal__options-list visually-hidden">
+							<li class="modal__option">
+								<label class="modal__pack-checkbox checkbox">
+									<input
+										type="checkbox"
+										class="checkbox__input checkbox__input-pack"
+										data-pack="Пупырка"
+									/>
+									Пупырка
+								</label>
+								<span class="modal__option-price">620 ¥ / мешок</span>
+							</li>
+							<li class="modal__option">
+								<label class="modal__pack-checkbox checkbox">
+									<input
+										type="checkbox"
+										class="checkbox__input checkbox__input-pack"
+										data-pack="Паллета"
+									/>
+									Паллета
+								</label>
+								<span class="modal__option-price">620 ¥ / шт</span>
+							</li>
+							<li class="modal__option">
+								<label class="modal__pack-checkbox checkbox">
+									<input
+										type="checkbox"
+										class="checkbox__input checkbox__input-pack"
+										data-pack="Фанера"
+									/>
+									Фанера
+								</label>
+								<span class="modal__option-price">620 ¥ / шт</span>
+							</li>
+						</ul>
+					</div>
+					<ul class="modal__label-list">
+						<li class="modal__label-item" data-pack="Пупырка">
+							Пупырка
+							<span class="modal__label-cross"></span>
+						</li>
+						<li class="modal__label-item" data-pack="Паллета">
+							Паллета
+							<span class="modal__label-cross"></span>
+						</li>
+						<li class="modal__label-item" data-pack="Фанера">
+							Фанера
+							<span class="modal__label-cross"></span>
+						</li>
+					</ul>
+					<div class="modal__total-result-calc">
+						<h3 class="modal__subtitle">Перерасчёт с учётом упаковки</h3>
+						<ul class="modal__total-result-list">
+							<li class="modal__total-result-item">
+								<label class="label"> Итого вес </label>
+								<input
+									class="modal__total-result-input input input--lock"
+									type="text"
+									value="0"
+									readonly
+								/>
+							</li>
+							<li class="modal__total-result-item">
+								<label class="label"> Итого объём </label>
+								<input
+									class="modal__total-result-input input input--lock"
+									type="text"
+									value="0"
+									readonly
+								/>
+							</li>
+							<li class="modal__total-result-item">
+								<label class="label" for=""> Итого плотность </label>
+								<input
+									class="modal__total-result-input input input--lock"
+									type="text"
+									value="0"
+									readonly
+								/>
+							</li>
+							<li class="modal__total-result-item">
+								<label class="label" for=""> Страховка, % </label>
+								<input
+									class="modal__total-result-input input input--lock"
+									type="text"
+									value="1%"
+									readonly
+								/>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="modal__total-details">
+					<h3 class="modal__subtitle">
+						Детализация предварительного расчёта стоимости перевозки
+					</h3>
+					<table class="modal__table-details">
+						<thead>
+							<tr class="modal__table-header">
+								<th class="modal__table-head"></th>
+								<th class="modal__table-head-row">10-15 дней</th>
+								<th class="modal__table-head-row">18-25 дней</th>
+								<th class="modal__table-head-row">20-30 дней</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="modal__table-row">
+								<td class="modal__table-head-row">Ставка за кг</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+							</tr>
+							<tr class="modal__table-row">
+								<td class="modal__table-head-row">Стоимость доставки</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+							</tr>
+							<tr class="modal__table-row">
+								<td class="modal__table-head-row">Упаковка</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+							</tr>
+							<tr class="modal__table-row">
+								<td class="modal__table-head-row">Разгрузка</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+							</tr>
+							<tr class="modal__table-row">
+								<td class="modal__table-head-row">Страховка</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+								<td class="modal__table-data">1$</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<button class="modal__button button">Сохранить расчёт</button>
+			</div>
+		</dialog>
+
+		<template id="product-template">
+			<li class="modal__product product">
+				<div class="product__header">
+					<h3 class="product__title modal--purple">Товар</h3>
+					<button class="product__delete"></button>
+				</div>
+				<div class="product__input-wrapper">
+					<label for="" class="product__name-label label">
+						Название товара
+					</label>
+					<input
+						type="text"
+						class="product__name-input input"
+						placeholder="Введите название товара"
+						minlength="2"
+						maxlength="50"
+					/>
+				</div>
+				<p class="product__name-hint">
+					Скорее всего, это
+					<span class="modal--purple">линия "Одежда"</span>
+				</p>
+				<h4 class="product__subtitle">Введите транспортировочные данные</h4>
+				<ul class="product__delivery-data">
+					<ul class="product__delivery-dimensions">
+						<li class="product__delivery-param product__input-wrapper">
+							<label for="" class="product__delivery-label label">
+								Длина, см
+							</label>
+							<input
+								type="number"
+								class="product__delivery-input input dimension"
+								min="1"
+								max="99999"
+								placeholder="Длина"
+							/>
+						</li>
+						<li class="product__delivery-param product__input-wrapper">
+							<label for="" class="product__delivery-label label">
+								Ширина, см
+							</label>
+							<input
+								type="number"
+								class="product__delivery-input input dimension"
+								placeholder="Ширина"
+								min="1"
+								max="99999"
+							/>
+						</li>
+						<li class="product__delivery-param product__input-wrapper">
+							<label for="" class="product__delivery-label label">
+								Высота, см
+							</label>
+							<input
+								type="number"
+								class="product__delivery-input input dimension"
+								placeholder="Высота"
+								min="1"
+								max="99999"
+							/>
+						</li>
+						<p class="product__text">=</p>
+						<li class="product__delivery-param product__input-wrapper">
+							<label for="" class="product__delivery-label label">
+								Объём, м3
+							</label>
+							<input
+								type="text"
+								class="product__delivery-input input input--lock volume"
+								placeholder="Объём"
+								readonly
+							/>
+						</li>
+					</ul>
+					<li class="product__delivery-param product__input-wrapper">
+						<label for="" class="product__delivery-label label">
+							Вес коробки, кг
+						</label>
+						<input
+							type="number"
+							class="product__delivery-input product__delivery-input--long input weight"
+							placeholder="Введите вес коробки"
+							min="1"
+							max="99999"
+						/>
+					</li>
+					<li class="product__delivery-param product__input-wrapper">
+						<label for="" class="product__delivery-label label">
+							Кол-во коробок, шт
+						</label>
+						<input
+							type="number"
+							class="product__delivery-input product__delivery-input--long input count"
+							placeholder="Введите кол-во коробок"
+							min="1"
+							max="99999"
+						/>
+					</li>
+					<li class="product__delivery-param product__input-wrapper">
+						<label for="" class="product__delivery-label label">
+							Стоимость товара, ¥
+						</label>
+						<input
+							type="number"
+							class="product__delivery-input product__delivery-input--long input cost"
+							placeholder="Введите общую стоимость всего товара"
+							min="1"
+							max="9999999"
+						/>
+					</li>
+				</ul>
+				<label class="modal__fragile-checkbox checkbox">
+					<input type="checkbox" class="checkbox__input" />
+					Хрупкий товар
+				</label>
+			</li>
+		</template>
+		<script src="index.js"></script>
+	</body>
+</html>
